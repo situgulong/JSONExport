@@ -131,15 +131,15 @@
                      "fetchCustomTypePropertyFromMap": "\t\tlet <!VarName!>Json = json[\"<!JsonKeyName!>\"]\n\t\tif !<!VarName!>Json.isEmpty{\n\t\t\t<!VarName!> = <!VarType!>(fromJson: <!VarName!>Json)\n\t\t}\n"
                      },
                      {
-                     "fetchArrayOfBasicTypePropertyFromMap": "\t\t<!VarName!> = <!VarType!>()\n\t\tlet <!VarName!>Array = json[\"<!JsonKeyName!>\"].arrayValue\n\t\tfor <!VarName!>Json in <!VarName!>Array{\n\t\t\t<!VarName!>.append(<!VarName!>Json.<!VarBasicTypeReplacement!>)\n\t\t}\n",
-                     "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "\t\t<!VarName!> = json[\"<!JsonKeyName!>\"].<!VarBasicTypeReplacement!>\n",
-                     "bodyStart": "{\n\t\tif json.isEmpty{\n\t\t\treturn\n\t\t}\n",
+                     "fetchArrayOfBasicTypePropertyFromMap": "",
+                     "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "",
+                     "bodyStart": "{\n\t\tvar mutableArray = [<!ModelName!>]()\n\t\tguard keyValuesArray != nil else {return nil}\n\t\tlet json = JSON.init(keyValuesArray!)\n\t\tlet array = json.arrayValue\n\t\tfor item in array {\n\t\t\tlet model = <!ModelName!>.init(fromJson: item)\n\t\t\tmutableArray.append(model)\n\t\t}\n\t\treturn mutableArray\n",
                      "bodyEnd": "\t}\n",
                      "fetchBasicTypePropertyFromMap": "",
-                     "signature": "\tinit(fromJson json: JSON!)",
-                     "fetchArrayOfCustomTypePropertyFromMap": "\t\t<!VarName!> = <!VarType!>()\n\t\tlet <!VarName!>Array = json[\"<!JsonKeyName!>\"].arrayValue\n\t\tfor <!VarName!>Json in <!VarName!>Array{\n\t\t\tlet value = <!ElementType!>(fromJson: <!VarName!>Json)\n\t\t\t<!VarName!>.append(value)\n\t\t}\n",
+                     "signature": "\tclass func objectArray(_ keyValuesArray: Any?) -> [<!ModelName!>]?",
+                     "fetchArrayOfCustomTypePropertyFromMap": "",
                      "comment": "\n\n\t/**\n\t *  转模型数组\n\t */\n",
-                     "fetchCustomTypePropertyFromMap": "\t\tlet <!VarName!>Json = json[\"<!JsonKeyName!>\"]\n\t\tif !<!VarName!>Json.isEmpty{\n\t\t\t<!VarName!> = <!VarType!>(fromJson: <!VarName!>Json)\n\t\t}\n"
+                     "fetchCustomTypePropertyFromMap": ""
                      }
                      ],
     "modelDefinition": "\nclass <!ModelName!>",
@@ -159,7 +159,7 @@
                                            ],
     "arrayType": "[<!ElementType!>]",
     "modelDefinitionWithParent": "\n\nclass <!ModelName!> : <!ParentClass!>",
-    "instanceVarDefinition": "\tvar <!VarName!> : <!VarType!>!\n",
+    "instanceVarDefinition": "\tvar <!VarName!> : <!VarType!>! = \"\" \n",
     "supportsFirstLineStatement": "false",
     "modelEnd": "\n}",
     "staticImports": "import Foundation \nimport SwiftyJSON",
